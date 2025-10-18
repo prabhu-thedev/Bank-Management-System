@@ -99,7 +99,7 @@ public class Login extends JFrame implements ActionListener {
         add(iiimage);
         setLayout(null);
         setSize(800,450);
-        setLocation(280,100);
+        setLocation(220,30);
         setVisible(true);
 
     }
@@ -113,7 +113,7 @@ public class Login extends JFrame implements ActionListener {
                 textField1.setText("");
                 passwordField2.setText("");
             } else if (e.getSource() == button3) {
-
+                new SignUp();
             }
         } catch (Exception ex) {
             ex.printStackTrace();
