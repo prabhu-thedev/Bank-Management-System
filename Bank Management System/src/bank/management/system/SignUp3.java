@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SignUp3 extends JFrame implements ActionListener {
     JRadioButton r1,r2,r3,r4;
@@ -192,7 +192,7 @@ public class SignUp3 extends JFrame implements ActionListener {
         c.addActionListener(this);
         add(c);
 
-        JLabel l12 = new JLabel("Form No : ");
+        JLabel l12 = new JLabel("Form No : " + formNo);
         l12.setFont(new Font("Raleway",Font.BOLD,16));
         l12.setBounds(650,10,150,30);
         add(l12);
@@ -206,20 +206,22 @@ public class SignUp3 extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String aType = null;
+        String aType = "";
         if (r1.isSelected()) aType = "Saving Account";
         else if (r2.isSelected()) aType = "Fixed Deposit Account";
         else if (r3.isSelected()) aType = "Current Account";
         else if (r4.isSelected()) aType = "Recurring Deposit Account";
 
-        Random rand = new Random();
-        long first7 = (rand.nextLong()) % 90000000L + 140996300000000L;
-        String cardNo = "" + Math.abs(first7);
+        long base = 140_996_300_000_000L;
+        long randPart = ThreadLocalRandom.current().nextLong(0L, 90_000_000L); // 0 .. 89,999,999
+        long cardVal = base + randPart;
+        String cardNo = Long.toString(cardVal);          // use String.format("%015d", cardVal) if you need fixed width
 
-        long first3 = (rand.nextLong()) % 9000L + 1000L;
-        String pin = "" + Math.abs(first3);
+        int pinVal = ThreadLocalRandom.current().nextInt(1000, 10000); // 1000 .. 9999
+        String pin = String.format("%04d", pinVal);     // ensures exactly 4 digits
 
-        String fac = null;
+
+        String fac = "";
         if (c1.isSelected()) fac += "ATM CARD";
         else if (c2.isSelected()) fac += "Internet Banking";
         else if (c3.isSelected()) fac += "Mobile Banking";
@@ -250,6 +252,7 @@ public class SignUp3 extends JFrame implements ActionListener {
                     pst.executeUpdate();
                     pst2.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Card Number : " + cardNo +"\n" + "Pin : " + pin);
+                    new Deposit(pin);
                     setVisible(false);
                 }
             } else if (e.getSource() == c) {

@@ -110,7 +110,7 @@ public class SignUp extends JFrame implements ActionListener {
 
         JLabel labelMS = new JLabel("Married Status :");
         labelMS.setFont(new Font("Ralewat", Font.BOLD,20));
-        labelMS.setBounds(100,370,100,30);
+        labelMS.setBounds(100,370,400,30);
         add(labelMS);
 
         r3 = new JRadioButton("Married");
@@ -235,8 +235,8 @@ public class SignUp extends JFrame implements ActionListener {
 
             pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Details submitted successfully!");
-            new SignUp2(first); // move to next form
+            JOptionPane.showMessageDialog(null, "Form 1 submitted successfully!");
+            new SignUp2(formNo);
             setVisible(false);
 
         } catch (Exception ex) {

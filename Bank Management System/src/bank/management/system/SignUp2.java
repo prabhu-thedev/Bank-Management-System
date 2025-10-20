@@ -12,7 +12,7 @@ public class SignUp2 extends JFrame implements ActionListener {
     JTextField textPan, textAadhaar;
     JRadioButton r1,r2,r3,r4;
     JButton next;
-    SignUp2(String first){
+    SignUp2(String formNo){
         super("APPLICATION FORM");
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
         Image i2 = i1.getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT);
@@ -155,7 +155,7 @@ public class SignUp2 extends JFrame implements ActionListener {
         buttonGroup1.add(r4);
         buttonGroup1.add(r3);
 
-        JLabel l12 = new JLabel("Form No " + formNo);
+        JLabel l12 = new JLabel("Form No : " + formNo);
         l12.setFont(new Font("Raleway",Font.BOLD,16));
         l12.setBounds(650,10,150,30);
         add(l12);
@@ -215,7 +215,7 @@ public class SignUp2 extends JFrame implements ActionListener {
                 pst.setString(9, eAccount);
 
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Details submitted successfully!");
+                JOptionPane.showMessageDialog(null, "Form 2 submitted successfully!");
                 new SignUp3(formNo); // move to next form
                 setVisible(false);
             }

@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Login extends JFrame implements ActionListener {
 
@@ -108,11 +110,28 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try{
             if (e.getSource() == button1){
+                Con c = new Con();
+                String cardNo = textField1.getText();
+                String pin = passwordField2.getText();
+                String q = "SELECT * FROM login WHERE card_number = ? AND pin = ?";
+
+                PreparedStatement ps = c.connection.prepareStatement(q);
+                ps.setString(1,cardNo);
+                ps.setString(2,pin);
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()){
+                    setVisible(false);
+                    new main_Class(pin);
+                }else {
+                    JOptionPane.showMessageDialog(null, "Invalid card number or PIN");
+                }
 
             } else if (e.getSource() == button2) {
                 textField1.setText("");
                 passwordField2.setText("");
             } else if (e.getSource() == button3) {
+                setVisible(false);
                 new SignUp();
             }
         } catch (Exception ex) {
