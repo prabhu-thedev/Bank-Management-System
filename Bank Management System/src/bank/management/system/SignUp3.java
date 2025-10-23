@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.SecureRandom;
 import java.sql.PreparedStatement;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -213,12 +214,12 @@ public class SignUp3 extends JFrame implements ActionListener {
         else if (r4.isSelected()) aType = "Recurring Deposit Account";
 
         long base = 140_996_300_000_000L;
-        long randPart = ThreadLocalRandom.current().nextLong(0L, 90_000_000L); // 0 .. 89,999,999
+        long randPart = ThreadLocalRandom.current().nextLong(0L, 90_000_000L);
         long cardVal = base + randPart;
-        String cardNo = Long.toString(cardVal);          // use String.format("%015d", cardVal) if you need fixed width
+        String cardNo = Long.toString(cardVal);
 
-        int pinVal = ThreadLocalRandom.current().nextInt(1000, 10000); // 1000 .. 9999
-        String pin = String.format("%04d", pinVal);     // ensures exactly 4 digits
+        SecureRandom sr = new SecureRandom();
+        String pin = String.format("%04d", sr.nextInt(9000) + 1000);
 
 
         String fac = "";
