@@ -111,16 +111,13 @@ public class PinChange extends JFrame implements ActionListener {
                 PreparedStatement ps2 = c1.connection.prepareStatement(q2);
                 PreparedStatement ps3 = c1.connection.prepareStatement(q3);
 
-                String newPin = pin1;
-
-                // Set parameters for each
-                ps1.setString(1, newPin);
+                ps1.setString(1, pin1);
                 ps1.setString(2, pin);
 
-                ps2.setString(1, newPin);
+                ps2.setString(1, pin1);
                 ps2.setString(2, pin);
 
-                ps3.setString(1, newPin);
+                ps3.setString(1, pin1);
                 ps3.setString(2, pin);
 
                 ps1.executeUpdate();
@@ -130,7 +127,7 @@ public class PinChange extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "PIN changed successfully!");
 
                 setVisible(false);
-                new main_Class(newPin);
+                new main_Class(pin1);
             } else if (e.getSource() == b2) {
                 setVisible(false);
                 new main_Class(pin);
