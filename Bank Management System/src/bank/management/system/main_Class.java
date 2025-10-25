@@ -62,6 +62,7 @@ public class main_Class extends JFrame implements ActionListener {
         b4.setBorderPainted(false);
         b4.setFocusPainted(false);
         b4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        b4.addActionListener(this);
         l3.add(b4);
 
         b5 = new JButton("PIN CHANGE");
@@ -113,6 +114,8 @@ public class main_Class extends JFrame implements ActionListener {
             } else if (e.getSource() == b3) {
                 setVisible(false);
                 new FastCash(pin);
+            } else if (e.getSource() == b4) {
+                new Mini(pin);
             } else if (e.getSource() == b5) {
                 setVisible(false);
                 new PinChange(pin);
